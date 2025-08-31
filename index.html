@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Pragyanjali</title>
+
+    <link rel="icon" type="image/png" href="logo1.png" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #89CFF0;
+        }
+
+        canvas#matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            color: #89CFF0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #89CFF0;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: white;
+        }
+
+        .home {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            padding: 40px 20px;
+        }
+
+        .home-content {
+            max-width: 900px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #89CFF0;
+            min-height: 600px;
+            max-height: 900px;
+            overflow: auto;
+        }
+
+        .home-content h1 {
+            font-size: 2.8em;
+            margin: 10px 0;
+        }
+
+        .home-content h3 {
+            font-size: 1.6em;
+            margin: 10px 0;
+        }
+
+        .home-content p {
+            font-size: 1.1em;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .home-sci {
+            margin-top: 20px;
+        }
+
+        .home-sci a {
+            color: #89CFF0;
+            font-size: 1.8em;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+
+        .home-sci a:hover {
+            transform: scale(1.2);
+            color: white;
+        }
+
+        .btn-box {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #89CFF0;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-box:hover {
+            background: white;
+            color: #000;
+        }
+
+        .home-img .glowing-circle {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 3px solid #89CFF0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-img .image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .home-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 6rem 10%;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .heading {
+            font-size: 3em;
+            margin-bottom: 2rem;
+            color: #89CFF0;
+        }
+
+        .heading .highlight {
+            color: white;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #89CFF0;
+        }
+
+        .about-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #f0f0f0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-item {
+            background: #222;
+            padding: 2rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px #89CFF0;
+        }
+
+        .skill-item i {
+            font-size: 4em;
+            color: #89CFF0;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-item h3 {
+            font-size: 1.2em;
+            color: #f0f0f0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px #89CFF0;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #89CFF0;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 1em;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #89CFF0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: white;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #89CFF0;
+        }
+
+        .btn-submit {
+            padding: 15px 30px;
+            background: #89CFF0;
+            color: #0d0d0d;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<header class="header">
+    <a href="#" class="logo">{Portfolio}</a>
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+    </nav>
+</header>
+
+<section id="home" class="home">
+    <div class="home-content" data-scroll data-scroll-speed="-5">
+        <h3 class="mu">Hello, I am</h3>
+        <h1>Pragyanjali</h1>
+        <h3>And I'm a <span class="pro-text"></span></h3>
+        <p>I'm a seasoned Cyber Security professional with over 7 years of expertise in safeguarding diverse digital landscapes. My passion lies in proactively identifying and mitigating vulnerabilities to build more secure systems. I have acquired strong skills in ethical hacking and systems analysis, helping organizations stay secure.</p>
+        <div class="home-sci">
+            <a href="https://github.com/" target="_blank"><i class='bx bxl-github'></i></a>
+            <a href="https://www.linkedin.com/" target="_blank"><i class='bx bxl-linkedin'></i></a>
+            <a href="https://wa.me/" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class='bx bxl-instagram'></i></a>
+        </div>
+    </div>
+
+    <div class="home-img">
+        <div class="glowing-circle">
+            <div class="image">
+                <img src="image.png" alt="Profile Image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="skills">
+    <div class="content-container">
+        <h2 class="heading">My <span class="highlight">Skills</span></h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <i class='bx bx-bug-alt'></i>
+                <h3>Penetration Testing & VAPT</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-code-alt'></i>
+                <h3>Web Application</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-mobile-alt'></i>
+                <h3>Mobile Application</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-cog'></i>
+                <h3>API</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-cloud-security'></i>
+                <h3>Container & Kubernetes</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-chip'></i>
+                <h3>IoT</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-desktop'></i>
+                <h3>Thick Client</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-wifi'></i>
+                <h3>Wireless & Network Security</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-brain'></i>
+                <h3>AI</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-data'></i>
+                <h3>Databases</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-server'></i>
+                <h3>Mainframes</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bx-laptop'></i>
+                <h3>Operating Systems</h3>
+            </div>
+            <div class="skill-item">
+                <i class='bx bxl-python'></i>
+                <h3>Python & Bash Scripting</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="projects">
+    <div class="content-container">
+        <h2 class="heading">Recent <span class="highlight">Projects</span></h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <img src="project1.jpg" alt="Project 1 thumbnail">
+                <div class="card-body">
+                    <h3 class="card-title">Project Title 1</h3>
+                    <p class="card-description">A brief description of your project, highlighting the technologies used and its purpose. For example, a web application built with React and Node.js.</p>
+                    <a href="#" class="project-link" target="_blank">View Project <i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project2.jpg" alt="Project 2 thumbnail">
+                <div class="card-body">
+                    <h3 class="card-title">Project Title 2</h3>
+                    <p class="card-description">A brief description of your second project. This could be a security analysis tool or a script for automating a task.</p>
+                    <a href="#" class="project-link" target="_blank">View Project <i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project3.jpg" alt="Project 3 thumbnail">
+                <div class="card-body">
+                    <h3 class="card-title">Project Title 3</h3>
+                    <p class="card-description">Description of your third project, focusing on a different aspect of your skills, like a penetration test report or a security audit.</p>
+                    <a href="#" class="project-link" target="_blank">View Project <i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    new Typed(".pro-text", {
+        strings: [
+            "Ethical Hacker",
+            "Penetration Tester",
+            "Security Consultant",
+        ],
+        typeSpeed: 100,
+        backSpeed: 100,
+        backDelay: 1000,
+        loop: true
+    });
+
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }, () => 1);
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#89CFF0";
+        ctx.font = fontSize + "px monospace";
+
+        drops.forEach((y, index) => {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            const x = index * fontSize;
+            ctx.fillText(text, x, y * fontSize);
+
+            drops[index] = y * fontSize > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+        });
+    }
+
+    setInterval(drawMatrix, 33);
+</script>
+
+</body>
+</html>
